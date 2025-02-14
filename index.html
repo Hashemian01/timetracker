@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
+
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     :root {
       --primary-bg: #f5f5f5;
@@ -63,9 +65,9 @@
 
     .container {
       background: var(--card-bg);
-      padding: 2rem;
+      padding: 1.5rem;
       border-radius: 12px;
-      box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
       text-align: center;
       width: 90%;
       max-width: 400px;
@@ -73,7 +75,7 @@
     }
 
     .timer {
-      font-size: 3.5rem;
+      font-size: 2.5rem;
       font-weight: 300;
       color: var(--text-color);
       margin: 1rem 0;
@@ -152,7 +154,8 @@
     h1 {
       color: var(--text-color);
       font-weight: 400;
-      margin-bottom: 2rem;
+      margin-bottom: 1.5rem;
+      font-size: 1.8rem;
     }
 
     .theme-switcher {
@@ -180,7 +183,7 @@
       right: 0;
       background: var(--card-bg);
       border-radius: 8px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
       padding: 0.5rem;
       display: none;
       grid-template-columns: repeat(2, 1fr);
@@ -220,15 +223,47 @@
     .theme-options.show {
       display: grid;
     }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 1rem;
+      }
+
+      .timer {
+        font-size: 2rem;
+      }
+
+      h1 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+      }
+
+      button {
+        padding: 0.6rem 1rem;
+        font-size: 0.9rem;
+      }
+
+      .theme-btn {
+        width: 25px;
+        height: 25px;
+      }
+
+      .theme-option {
+        width: 35px;
+        height: 35px;
+      }
+    }
   </style>
 </head>
+
 <body>
   <div class="container">
     <div class="theme-switcher">
       <button class="theme-btn" id="themeBtn">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <circle cx="12" cy="12" r="5"/>
-          <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+          <circle cx="12" cy="12" r="5" />
+          <path
+            d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
         </svg>
       </button>
       <div class="theme-options" id="themeOptions">
@@ -254,7 +289,7 @@
     let timerInterval;
     let isRunning = false;
     let records = [];
-    
+
     const display = document.getElementById('display');
     const startBtn = document.getElementById('startBtn');
     const stopBtn = document.getElementById('stopBtn');
@@ -282,7 +317,7 @@
         const theme = option.dataset.theme;
         document.documentElement.setAttribute('data-theme', theme === 'light' ? '' : theme);
         themeOptions.classList.remove('show');
-        
+
         // Save theme preference
         localStorage.setItem('theme', theme);
       });
@@ -307,7 +342,7 @@
       const elapsedTime = currentTime - startTime;
       const formattedTime = formatTime(elapsedTime);
       display.textContent = formattedTime;
-      
+
       // Update the tab title with the current time
       document.title = `${formattedTime} - Time Tracker`;
     }
@@ -338,7 +373,7 @@
           duration: duration
         };
         records.push(record);
-        
+
         const recordElement = document.createElement('div');
         recordElement.className = 'record-item';
         recordElement.innerHTML = `
@@ -346,7 +381,7 @@
           <span>${formatTime(duration)}</span>
         `;
         recordsDiv.appendChild(recordElement);
-        
+
         updateTotalTime();
         startBtn.disabled = false;
         stopBtn.disabled = true;
@@ -372,8 +407,10 @@
     stopBtn.disabled = true;
   </script>
 </body>
-  <footer
+
+<footer
   style="position: fixed; bottom: 10px; left: 50%; transform: translateX(-50%); font-size: 12px; color: var(--secondary-text);">
   Made using 🤖 by Ali Hashemian
 </footer>
+
 </html>
