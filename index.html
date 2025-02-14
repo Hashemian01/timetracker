@@ -433,6 +433,7 @@
                 timerInterval = setInterval(updateDisplay, 1000);
                 startBtn.disabled = true;
                 stopBtn.disabled = false;
+                document.title = "Time Tracker"; // Set the initial title
                 saveData();
             }
         });
@@ -477,6 +478,7 @@
             updateTotalTime();
             startBtn.disabled = false;
             stopBtn.disabled = false;
+            document.title = 'Time Tracker'; // Reset the tab title as well
             saveData();
         });
 
