@@ -2,415 +2,493 @@
 <html>
 
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    :root {
-      --primary-bg: #f5f5f5;
-      --card-bg: white;
-      --text-color: #333;
-      --secondary-text: #666;
-      --record-bg: #f8f9fa;
-      --border-color: #eee;
-      --start-btn: #4CAF50;
-      --stop-btn: #f44336;
-      --reset-btn: #9e9e9e;
-    }
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        :root {
+            --primary-bg: #f5f5f5;
+            --card-bg: white;
+            --text-color: #333;
+            --secondary-text: #666;
+            --record-bg: #f8f9fa;
+            --border-color: #eee;
+            --start-btn: #4CAF50;
+            --stop-btn: #f44336;
+            --reset-btn: #9e9e9e;
+        }
 
-    [data-theme="dark"] {
-      --primary-bg: #121212;
-      --card-bg: #1e1e1e;
-      --text-color: #ffffff;
-      --secondary-text: #b0b0b0;
-      --record-bg: #2d2d2d;
-      --border-color: #333;
-      --start-btn: #66bb6a;
-      --stop-btn: #ef5350;
-      --reset-btn: #757575;
-    }
+        [data-theme="dark"] {
+            --primary-bg: #121212;
+            --card-bg: #1e1e1e;
+            --text-color: #ffffff;
+            --secondary-text: #b0b0b0;
+            --record-bg: #2d2d2d;
+            --border-color: #333;
+            --start-btn: #66bb6a;
+            --stop-btn: #ef5350;
+            --reset-btn: #757575;
+        }
 
-    [data-theme="purple"] {
-      --primary-bg: #f3e5f5;
-      --card-bg: white;
-      --text-color: #4a148c;
-      --secondary-text: #6a1b9a;
-      --record-bg: #e1bee7;
-      --border-color: #ce93d8;
-      --start-btn: #8e24aa;
-      --stop-btn: #6a1b9a;
-      --reset-btn: #ab47bc;
-    }
+        [data-theme="purple"] {
+            --primary-bg: #f3e5f5;
+            --card-bg: white;
+            --text-color: #4a148c;
+            --secondary-text: #6a1b9a;
+            --record-bg: #e1bee7;
+            --border-color: #ce93d8;
+            --start-btn: #8e24aa;
+            --stop-btn: #6a1b9a;
+            --reset-btn: #ab47bc;
+        }
 
-    [data-theme="ocean"] {
-      --primary-bg: #e3f2fd;
-      --card-bg: white;
-      --text-color: #0d47a1;
-      --secondary-text: #1565c0;
-      --record-bg: #bbdefb;
-      --border-color: #90caf9;
-      --start-btn: #1976d2;
-      --stop-btn: #0d47a1;
-      --reset-btn: #2196f3;
-    }
+        [data-theme="ocean"] {
+            --primary-bg: #e3f2fd;
+            --card-bg: white;
+            --text-color: #0d47a1;
+            --secondary-text: #1565c0;
+            --record-bg: #bbdefb;
+            --border-color: #90caf9;
+            --start-btn: #1976d2;
+            --stop-btn: #0d47a1;
+            --reset-btn: #2196f3;
+        }
 
-    body {
-      font-family: 'Segoe UI', Roboto, Arial, sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      margin: 0;
-      background: var(--primary-bg);
-      transition: all 0.3s ease;
-    }
+        [data-theme="green"] {
+            --primary-bg: #e8f5e9;
+            --card-bg: white;
+            --text-color: #2e7d32;
+            --secondary-text: #388e3c;
+            --record-bg: #c8e6c9;
+            --border-color: #a5d6a7;
+            --start-btn: #43a047;
+            --stop-btn: #2e7d32;
+            --reset-btn: #66bb6a;
+        }
 
-    .container {
-      background: var(--card-bg);
-      padding: 1.5rem;
-      border-radius: 12px;
-      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
-      text-align: center;
-      width: 90%;
-      max-width: 400px;
-      position: relative;
-    }
+        [data-theme="orange"] {
+            --primary-bg: #fff3e0;
+            --card-bg: white;
+            --text-color: #e65100;
+            --secondary-text: #ef6c00;
+            --record-bg: #ffe0b2;
+            --border-color: #ffcc80;
+            --start-btn: #fb8c00;
+            --stop-btn: #e65100;
+            --reset-btn: #ffa726;
+        }
 
-    .timer {
-      font-size: 2.5rem;
-      font-weight: 300;
-      color: var(--text-color);
-      margin: 1rem 0;
-    }
+        body {
+            font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background: var(--primary-bg);
+            transition: all 0.3s ease;
+        }
 
-    .controls {
-      display: flex;
-      gap: 1rem;
-      justify-content: center;
-      margin: 1.5rem 0;
-    }
+        .container {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 90%;
+            max-width: 400px;
+            position: relative;
+        }
 
-    button {
-      padding: 0.8rem 1.5rem;
-      border: none;
-      border-radius: 6px;
-      font-size: 1rem;
-      font-weight: 500;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      text-transform: uppercase;
-    }
+        .timer {
+            font-size: 2.5rem;
+            font-weight: 300;
+            color: var(--text-color);
+            margin: 1rem 0;
+        }
 
-    button:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
+        .controls {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin: 1.5rem 0;
+        }
 
-    #startBtn {
-      background: var(--start-btn);
-      color: white;
-    }
+        button {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
 
-    #stopBtn {
-      background: var(--stop-btn);
-      color: white;
-    }
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
 
-    #resetBtn {
-      background: var(--reset-btn);
-      color: white;
-    }
+        #startBtn {
+            background: var(--start-btn);
+            color: white;
+        }
 
-    button:hover:not(:disabled) {
-      opacity: 0.9;
-      transform: translateY(-1px);
-    }
+        #stopBtn {
+            background: var(--stop-btn);
+            color: white;
+        }
 
-    button:active:not(:disabled) {
-      transform: translateY(1px);
-    }
+        #resetBtn {
+            background: var(--reset-btn);
+            color: white;
+        }
 
-    .records {
-      margin-top: 2rem;
-      text-align: left;
-    }
+        button:hover:not(:disabled) {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
 
-    .record-item {
-      background: var(--record-bg);
-      padding: 0.8rem;
-      margin: 0.5rem 0;
-      border-radius: 4px;
-      display: flex;
-      justify-content: space-between;
-      color: var(--text-color);
-    }
+        button:active:not(:disabled) {
+            transform: translateY(1px);
+        }
 
-    .total-time {
-      margin-top: 1.5rem;
-      padding-top: 1.5rem;
-      border-top: 1px solid var(--border-color);
-      font-size: 1.2rem;
-      color: var(--secondary-text);
-    }
+        .records {
+            margin-top: 2rem;
+            text-align: left;
+        }
 
-    h1 {
-      color: var(--text-color);
-      font-weight: 400;
-      margin-bottom: 1.5rem;
-      font-size: 1.8rem;
-    }
+        .record-item {
+            background: var(--record-bg);
+            padding: 0.8rem;
+            margin: 0.5rem 0;
+            border-radius: 4px;
+            display: flex;
+            justify-content: space-between;
+            color: var(--text-color);
+        }
 
-    .theme-switcher {
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-    }
+        .total-time {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-color);
+            font-size: 1.2rem;
+            color: var(--secondary-text);
+        }
 
-    .theme-btn {
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      padding: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: var(--text-color);
-      color: var(--card-bg);
-      z-index: 2;
-    }
+        h1 {
+            color: var(--text-color);
+            font-weight: 400;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
 
-    .theme-options {
-      position: absolute;
-      top: 50px;
-      right: 0;
-      background: var(--card-bg);
-      border-radius: 8px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-      padding: 0.5rem;
-      display: none;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 0.5rem;
-      z-index: 1;
-    }
+        .theme-switcher {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+        }
 
-    .theme-option {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      cursor: pointer;
-      border: 2px solid transparent;
-      transition: all 0.3s ease;
-    }
+        .theme-btn {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--text-color);
+            color: var(--card-bg);
+            z-index: 2;
+        }
 
-    .theme-option:hover {
-      transform: scale(1.1);
-    }
+        .theme-options {
+            position: absolute;
+            top: 50px;
+            right: 0;
+            background: var(--card-bg);
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 0.5rem;
+            display: none;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.5rem;
+            z-index: 1;
+        }
 
-    .theme-option.light {
-      background: linear-gradient(45deg, #f5f5f5 50%, #ffffff 50%);
-    }
+        .theme-option {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
 
-    .theme-option.dark {
-      background: linear-gradient(45deg, #121212 50%, #1e1e1e 50%);
-    }
+        .theme-option:hover {
+            transform: scale(1.1);
+        }
 
-    .theme-option.purple {
-      background: linear-gradient(45deg, #4a148c 50%, #6a1b9a 50%);
-    }
+        .theme-option.light {
+            background: linear-gradient(45deg, #f5f5f5 50%, #ffffff 50%);
+        }
 
-    .theme-option.ocean {
-      background: linear-gradient(45deg, #0d47a1 50%, #1565c0 50%);
-    }
+        .theme-option.dark {
+            background: linear-gradient(45deg, #121212 50%, #1e1e1e 50%);
+        }
 
-    .theme-options.show {
-      display: grid;
-    }
+        .theme-option.purple {
+            background: linear-gradient(45deg, #4a148c 50%, #6a1b9a 50%);
+        }
 
-    @media (max-width: 600px) {
-      .container {
-        padding: 1rem;
-      }
+        .theme-option.ocean {
+            background: linear-gradient(45deg, #0d47a1 50%, #1565c0 50%);
+        }
 
-      .timer {
-        font-size: 2rem;
-      }
+        .theme-option.green {
+            background: linear-gradient(45deg, #2e7d32 50%, #43a047 50%);
+        }
 
-      h1 {
-        font-size: 1.5rem;
-        margin-bottom: 1rem;
-      }
+        .theme-option.orange {
+            background: linear-gradient(45deg, #e65100 50%, #fb8c00 50%);
+        }
 
-      button {
-        padding: 0.6rem 1rem;
-        font-size: 0.9rem;
-      }
+        .theme-options.show {
+            display: grid;
+        }
 
-      .theme-btn {
-        width: 25px;
-        height: 25px;
-      }
+        @media (max-width: 600px) {
+            .container {
+                padding: 1rem;
+            }
 
-      .theme-option {
-        width: 35px;
-        height: 35px;
-      }
-    }
-  </style>
+            .timer {
+                font-size: 2rem;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+                margin-bottom: 1rem;
+            }
+
+            button {
+                padding: 0.6rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            .theme-btn {
+                width: 25px;
+                height: 25px;
+            }
+
+            .theme-option {
+                width: 35px;
+                height: 35px;
+            }
+        }
+    </style>
 </head>
 
 <body>
-  <div class="container">
-    <div class="theme-switcher">
-      <button class="theme-btn" id="themeBtn">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <circle cx="12" cy="12" r="5" />
-          <path
-            d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
-        </svg>
-      </button>
-      <div class="theme-options" id="themeOptions">
-        <div class="theme-option light" data-theme="light" title="Light Theme"></div>
-        <div class="theme-option dark" data-theme="dark" title="Dark Theme"></div>
-        <div class="theme-option purple" data-theme="purple" title="Purple Theme"></div>
-        <div class="theme-option ocean" data-theme="ocean" title="Ocean Theme"></div>
-      </div>
+    <div class="container">
+        <div class="theme-switcher">
+            <button class="theme-btn" id="themeBtn">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="5" />
+                    <path
+                        d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+                </svg>
+            </button>
+            <div class="theme-options" id="themeOptions">
+                <div class="theme-option light" data-theme="light" title="Light Theme"></div>
+                <div class="theme-option dark" data-theme="dark" title="Dark Theme"></div>
+                <div class="theme-option purple" data-theme="purple" title="Purple Theme"></div>
+                <div class="theme-option ocean" data-theme="ocean" title="Ocean Theme"></div>
+                <div class="theme-option green" data-theme="green" title="Green Theme"></div>
+                <div class="theme-option orange" data-theme="orange" title="Orange Theme"></div>
+            </div>
+        </div>
+        <h1>Time Tracker</h1>
+        <div class="timer" id="display">00:00:00</div>
+        <div class="controls">
+            <button id="startBtn">Start</button>
+            <button id="stopBtn">Stop</button>
+            <button id="resetBtn">Reset</button>
+        </div>
+        <div class="records" id="records"></div>
+        <div class="total-time" id="totalTime">Total Time: 0.00 hours</div>
     </div>
-    <h1>Time Tracker</h1>
-    <div class="timer" id="display">00:00:00</div>
-    <div class="controls">
-      <button id="startBtn">Start</button>
-      <button id="stopBtn">Stop</button>
-      <button id="resetBtn">Reset</button>
-    </div>
-    <div class="records" id="records"></div>
-    <div class="total-time" id="totalTime">Total Time: 0.00 hours</div>
-  </div>
 
-  <script>
-    let startTime;
-    let timerInterval;
-    let isRunning = false;
-    let records = [];
+    <script>
+        let startTime;
+        let timerInterval;
+        let isRunning = false;
+        let records = [];
 
-    const display = document.getElementById('display');
-    const startBtn = document.getElementById('startBtn');
-    const stopBtn = document.getElementById('stopBtn');
-    const resetBtn = document.getElementById('resetBtn');
-    const recordsDiv = document.getElementById('records');
-    const totalTimeDiv = document.getElementById('totalTime');
-    const themeBtn = document.getElementById('themeBtn');
-    const themeOptions = document.getElementById('themeOptions');
+        const display = document.getElementById('display');
+        const startBtn = document.getElementById('startBtn');
+        const stopBtn = document.getElementById('stopBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const recordsDiv = document.getElementById('records');
+        const totalTimeDiv = document.getElementById('totalTime');
+        const themeBtn = document.getElementById('themeBtn');
+        const themeOptions = document.getElementById('themeOptions');
 
-    // Theme switcher
-    themeBtn.addEventListener('click', () => {
-      themeOptions.classList.toggle('show');
-    });
+        // Load saved data from localStorage
+        function loadSavedData() {
+            const savedRecords = localStorage.getItem('records');
+            if (savedRecords) {
+                records = JSON.parse(savedRecords);
+                records.forEach(record => {
+                    const recordElement = document.createElement('div');
+                    recordElement.className = 'record-item';
+                    recordElement.innerHTML = `
+            <span>Started at ${record.startTime}</span>
+            <span>${formatTime(record.duration)}</span>
+          `;
+                    recordsDiv.appendChild(recordElement);
+                });
+                updateTotalTime();
+            }
 
-    // Close theme options when clicking outside
-    document.addEventListener('click', (e) => {
-      if (!themeBtn.contains(e.target) && !themeOptions.contains(e.target)) {
-        themeOptions.classList.remove('show');
-      }
-    });
+            const savedStartTime = localStorage.getItem('startTime');
+            if (savedStartTime) {
+                startTime = parseInt(savedStartTime);
+                isRunning = true;
+                timerInterval = setInterval(updateDisplay, 1000);
+                startBtn.disabled = true;
+                stopBtn.disabled = false;
+            }
+        }
 
-    // Theme options handling
-    document.querySelectorAll('.theme-option').forEach(option => {
-      option.addEventListener('click', () => {
-        const theme = option.dataset.theme;
-        document.documentElement.setAttribute('data-theme', theme === 'light' ? '' : theme);
-        themeOptions.classList.remove('show');
+        // Save data to localStorage
+        function saveData() {
+            localStorage.setItem('records', JSON.stringify(records));
+            if (isRunning) {
+                localStorage.setItem('startTime', startTime);
+            } else {
+                localStorage.removeItem('startTime');
+            }
+        }
 
-        // Save theme preference
-        localStorage.setItem('theme', theme);
-      });
-    });
+        // Theme switcher
+        themeBtn.addEventListener('click', () => {
+            themeOptions.classList.toggle('show');
+        });
 
-    // Load saved theme
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
-      document.documentElement.setAttribute('data-theme', savedTheme === 'light' ? '' : savedTheme);
-    }
+        // Close theme options when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!themeBtn.contains(e.target) && !themeOptions.contains(e.target)) {
+                themeOptions.classList.remove('show');
+            }
+        });
 
-    function formatTime(ms) {
-      const pad = (n) => n.toString().padStart(2, '0');
-      const seconds = Math.floor((ms / 1000) % 60);
-      const minutes = Math.floor((ms / (1000 * 60)) % 60);
-      const hours = Math.floor((ms / (1000 * 60 * 60)) % 24);
-      return `${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
-    }
+        // Theme options handling
+        document.querySelectorAll('.theme-option').forEach(option => {
+            option.addEventListener('click', () => {
+                const theme = option.dataset.theme;
+                document.documentElement.setAttribute('data-theme', theme === 'light' ? '' : theme);
+                themeOptions.classList.remove('show');
 
-    function updateDisplay() {
-      const currentTime = Date.now();
-      const elapsedTime = currentTime - startTime;
-      const formattedTime = formatTime(elapsedTime);
-      display.textContent = formattedTime;
+                // Save theme preference
+                localStorage.setItem('theme', theme);
+            });
+        });
 
-      // Update the tab title with the current time
-      document.title = `${formattedTime} - Time Tracker`;
-    }
+        // Load saved theme
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            document.documentElement.setAttribute('data-theme', savedTheme === 'light' ? '' : savedTheme);
+        }
 
-    function updateTotalTime() {
-      const totalMs = records.reduce((acc, curr) => acc + curr.duration, 0);
-      const totalHours = (totalMs / (1000 * 60 * 60)).toFixed(2);
-      totalTimeDiv.textContent = `Total Time: ${totalHours} hours`;
-    }
+        function formatTime(ms) {
+            const pad = (n) => n.toString().padStart(2, '0');
+            const seconds = Math.floor((ms / 1000) % 60);
+            const minutes = Math.floor((ms / (1000 * 60)) % 60);
+            const hours = Math.floor((ms / (1000 * 60 * 60)) % 24);
+            return `${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
+        }
 
-    startBtn.addEventListener('click', () => {
-      if (!isRunning) {
-        isRunning = true;
-        startTime = Date.now();
-        timerInterval = setInterval(updateDisplay, 1000);
-        startBtn.disabled = true;
-        stopBtn.disabled = false;
-      }
-    });
+        function updateDisplay() {
+            const currentTime = Date.now();
+            const elapsedTime = currentTime - startTime;
+            const formattedTime = formatTime(elapsedTime);
+            display.textContent = formattedTime;
 
-    stopBtn.addEventListener('click', () => {
-      if (isRunning) {
-        isRunning = false;
-        clearInterval(timerInterval);
-        const duration = Date.now() - startTime;
-        const record = {
-          startTime: new Date(startTime).toLocaleTimeString(),
-          duration: duration
-        };
-        records.push(record);
+            // Update the tab title with the current time
+            document.title = `${formattedTime} - Time Tracker`;
+        }
 
-        const recordElement = document.createElement('div');
-        recordElement.className = 'record-item';
-        recordElement.innerHTML = `
+        function updateTotalTime() {
+            const totalMs = records.reduce((acc, curr) => acc + curr.duration, 0);
+            const totalHours = (totalMs / (1000 * 60 * 60)).toFixed(2);
+            totalTimeDiv.textContent = `Total Time: ${totalHours} hours`;
+        }
+
+        startBtn.addEventListener('click', () => {
+            if (!isRunning) {
+                isRunning = true;
+                startTime = Date.now();
+                timerInterval = setInterval(updateDisplay, 1000);
+                startBtn.disabled = true;
+                stopBtn.disabled = false;
+                saveData();
+            }
+        });
+
+        stopBtn.addEventListener('click', () => {
+            if (isRunning) {
+                isRunning = false;
+                clearInterval(timerInterval);
+                const duration = Date.now() - startTime;
+                const record = {
+                    startTime: new Date(startTime).toLocaleTimeString(),
+                    duration: duration
+                };
+                records.push(record);
+
+                const recordElement = document.createElement('div');
+                recordElement.className = 'record-item';
+                recordElement.innerHTML = `
           <span>Started at ${record.startTime}</span>
           <span>${formatTime(duration)}</span>
         `;
-        recordsDiv.appendChild(recordElement);
+                recordsDiv.appendChild(recordElement);
 
-        updateTotalTime();
-        startBtn.disabled = false;
+                updateTotalTime();
+                startBtn.disabled = false;
+                stopBtn.disabled = true;
+
+                // Reset the timer display to 00:00:00
+                display.textContent = '00:00:00';
+                document.title = 'Time Tracker'; // Reset the tab title as well
+
+                saveData();
+            }
+        });
+
+        resetBtn.addEventListener('click', () => {
+            isRunning = false;
+            clearInterval(timerInterval);
+            display.textContent = '00:00:00';
+            records = [];
+            recordsDiv.innerHTML = '';
+            updateTotalTime();
+            startBtn.disabled = false;
+            stopBtn.disabled = false;
+            saveData();
+        });
+
+        // Initial button state
         stopBtn.disabled = true;
 
-        // Reset the timer display to 00:00:00
-        display.textContent = '00:00:00';
-        document.title = 'Time Tracker'; // Reset the tab title as well
-      }
-    });
-
-    resetBtn.addEventListener('click', () => {
-      isRunning = false;
-      clearInterval(timerInterval);
-      display.textContent = '00:00:00';
-      records = [];
-      recordsDiv.innerHTML = '';
-      updateTotalTime();
-      startBtn.disabled = false;
-      stopBtn.disabled = false;
-    });
-
-    // Initial button state
-    stopBtn.disabled = true;
-  </script>
+        // Load saved data when the page loads
+        loadSavedData();
+    </script>
 </body>
 
 <footer
-  style="position: fixed; bottom: 10px; left: 50%; transform: translateX(-50%); font-size: 12px; color: var(--secondary-text);">
-  Made using 🤖 by Ali Hashemian
+    style="position: fixed; bottom: 10px; left: 50%; transform: translateX(-50%); font-size: 12px; color: var(--secondary-text);">
+    Made using 🤖 by Ali Hashemian
 </footer>
 
 </html>
