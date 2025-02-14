@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Add the favicon link here -->
     <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <title>Time Tracker</title> <!-- Set the initial title here -->
     <style>
         :root {
             --primary-bg: #f5f5f5;
@@ -334,6 +335,9 @@
         const totalTimeDiv = document.getElementById('totalTime');
         const themeBtn = document.getElementById('themeBtn');
         const themeOptions = document.getElementById('themeOptions');
+
+        // Set the initial title to "Time Tracker"
+        document.title = "Time Tracker";
 
         // Load saved data from localStorage
         function loadSavedData() {
